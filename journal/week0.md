@@ -10,7 +10,8 @@ iii. Click **Users** on the dashboard on the left side of the screen and select 
 iv. Enter the new user name and specify if you want such a user to have Console access by selecting **Provide user access to the AWS Management Console** and then **I want to create an IAM user**, create a password for the user and ensure that they change the password after 1st login session  
 v. Set the User permissions by either adding the user to an existing group or creating a new group (best practice). Ensure that you attach the **AdministratorAccess** policy to the group you are creating  
 vi. Review the new user's details and then click **Create User**.  
-vii. Easily retrieve password by downloading the .csv file
+vii. Easily retrieve password by downloading the .csv file  
+
  
 ### 2. Use Cloudshell
 
