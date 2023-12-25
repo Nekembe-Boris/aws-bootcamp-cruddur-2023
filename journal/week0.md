@@ -48,9 +48,13 @@ vii. Easily save the created ACCESS KEY and ACCESS KEY ID by downloading the .cs
 
 ### 6. Install AWS CLI
 
-1. The newly generated AWS credentials, and AWS account ID need to saved as environment variables in gitpod ( our cloud development environment for the bootcamp)
-   i. Setting an env variable
-   ``gp env AWS_ACCOUNT_ID=<value>``
-   ``gp env AWS_ACCESS_ID=<value>``
-   ``gp env AWS_ACCESS_KEY=<value>`` 
+1. The newly generated AWS credentials, and AWS account ID need to saved as environment variables in gitpod ( our cloud development environment for the bootcamp)  
+   i. Setting an env variable  
+   ``gp env AWS_ACCOUNT_ID=<value>``  
+   ``gp env AWS_ACCESS_ID=<value>``  
+   ``gp env AWS_ACCESS_KEY=<value>``  
+   ii. Exporting to gitpod  
+   ``export AWS_ACCOUNT_ID=<value>``  
+   ``export AWS_ACCESS_ID=<value>``  
+   ``exportAWS_ACCESS_KEY=<value>``  
    
