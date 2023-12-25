@@ -46,4 +46,11 @@ v. Go to the **Access Keys** box and click **create access key"
 vi. Select the Use Case, Set the description tag and then create the new access key.  
 vii. Easily save the created ACCESS KEY and ACCESS KEY ID by downloading the .csv file.  
 
-### 6
+### 6. Install AWS CLI
+
+1. The newly generated AWS credentials, and AWS account ID need to saved as environment variables in gitpod ( our cloud development environment for the bootcamp)
+   i. Setting an env variable
+   ``gp env AWS_ACCOUNT_ID=<value>``
+   ``gp env AWS_ACCESS_ID=<value>``
+   ``gp env AWS_ACCESS_KEY=<value>`` 
+   
