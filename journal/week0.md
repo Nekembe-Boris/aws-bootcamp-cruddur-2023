@@ -53,21 +53,26 @@ vii. Easily save the created ACCESS KEY and ACCESS KEY ID by downloading the .cs
    ``gp env AWS_ACCOUNT_ID=<value>``  
    ``gp env AWS_ACCESS_ID=<value>``  
    ``gp env AWS_ACCESS_KEY=<value>``  
+
    ii. Exporting to gitpod  
    ``export AWS_ACCOUNT_ID=<value>``  
    ``export AWS_ACCESS_ID=<value>``  
-   ``exportAWS_ACCESS_KEY=<value>``  
-2. To automate the installation of the AWS CLI each time we open out GITHUB repo in gitpod, we create a yaml file and write the following code.  
-   tasks:
-     - name: aws-cli
-       env:
-         AWS_CLI_AUTO_PROMPT: on-partial
-       init: |
-         cd /workspace
-         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-         unzip awscliv2.zip
-         sudo ./aws/install
-         cd $THEIA_WORKSPACE_ROOT
-   vscode:
-     extensions:
-       - 42Crunch.vscode-openapi
+   ``exportAWS_ACCESS_KEY=<value>``
+   
+3. To automate the installation of the AWS CLI each time we open the project Github repo in gitpod, we create a yaml file and write the following code  
+   ```yml
+       tasks:  
+        - name: aws-cli  
+          env:  
+            AWS_CLI_AUTO_PROMPT: on-partial  
+          init: |  
+            cd /workspace  
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"  
+            unzip awscliv2.zip  
+            sudo ./aws/install  
+            cd $THEIA_WORKSPACE_ROOT  
+      vscode:  
+        extensions:  
+          - 42Crunch.vscode-openapi  
+   ```
+  
