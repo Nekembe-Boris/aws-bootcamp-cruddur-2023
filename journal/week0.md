@@ -15,12 +15,11 @@
 ###  3. Create an Admin User
 
 i. Log into your AWS account as **Root User**  
-ii. Search and select **IAM (Identiity and Access Management) service**  
-iii. On the dashboard on the left side of the screen,  click **Users** and select **Create User**  
-iv. Enter the new user name and specify if you want such a user to have Console access by selecting **Provide user access to the AWS Management Console** and then **I want to create an IAM user**, create a password for the user and ensure that they change the password after 1st login session  
-v. Set the User permissions by either adding the user to an existing group or creating a new group (best practice). Ensure that you attach the **AdministratorAccess** policy to the group you are creating  
-vi. Review the new user's details and then click **Create User**.  
-vii. Easily retrieve password and user details by downloading the .csv file
+ii. Go to [IAM user console](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users) and click ``create user``  
+iii. Ensure that you ``Enable Console access`` for this user 
+iv. Add user to ``Admin group`` if it exists or create a new group and attach ``AdministratorAccess`` policy to the new group  
+v. Review the new user's details and then click **Create User**.  
+vi. Easily retrieve password and user details by downloading the .csv file
 
 
 ### 4. Use Cloudshell
@@ -38,12 +37,11 @@ Get all the AWS  CLI commands on [here](https://awscli.amazonaws.com/v2/document
 
 ### 5. Generate AWS Credentials
 
-i. Sign in as a User  
-ii. Search and select **IAM (Identiity and Access Management) service**  
-iii. On the dashboard on the left side of the screen,  click **Users** and click again on the user you want to generate credentials for  
-iv. Click on the **Security Credentials** tab  
-v. Go to the **Access Keys** box and click **create access key"  
-vi. Select the Use Case, Set the description tag and then create the new access key.  
+i. Sign in as an Admin User  
+ii. Go to [IAM user console](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users) and click on the ``User name``  
+iv. Click on the ``Security Credentials`` tab  
+v. Go to the ``Access Keys`` box and click ``create access key``  
+vi. Choose ``AWS CLI Access`` on the access type and generate new credentials  
 vii. Easily save the created ACCESS KEY and ACCESS KEY ID by downloading the .csv file.  
 
 ### 6. Install AWS CLI
@@ -75,4 +73,21 @@ vscode:
   extensions:
     - 42Crunch.vscode-openapi
    ```
+
+### 7. Create Billing Alarm
+
+i. First create an SNS topic which will generate a ``Topic ARN``  
+[aws sns create-topic](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sns/create-topic.html#examples)  
+
+``aws sns create-topic --name billing_alarm``  
+
+ii. Use the generated Topic ARN and your email to subscribe  
+``
+aws sns subscribe \  
+    --topic-arn arn:aws:sns:us-west-2:123456789012:my-topic \  
+    --protocol email \  
+    --notification-endpoint your-email@example.com  
+``
+iii. Confirm subscription in the provide email
+
   
