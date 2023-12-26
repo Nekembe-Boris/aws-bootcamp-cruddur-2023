@@ -88,7 +88,8 @@ aws sns subscribe \
     --protocol email \  
     --notification-endpoint your-email@example.com  
 ```
-iii. Confirm subscription in the provide email
+iii. Confirm subscription in the provide email  
+iv. Update 
 
 
 ### 8. Create Budget
