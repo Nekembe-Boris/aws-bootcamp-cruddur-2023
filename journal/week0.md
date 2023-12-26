@@ -82,12 +82,21 @@ i. First create an SNS topic which will generate a ``Topic ARN``
 ``aws sns create-topic --name billing_alarm``  
 
 ii. Use the generated Topic ARN and your email to subscribe  
-``
+```
 aws sns subscribe \  
     --topic-arn arn:aws:sns:us-west-2:123456789012:my-topic \  
     --protocol email \  
     --notification-endpoint your-email@example.com  
-``
+```
 iii. Confirm subscription in the provide email
 
-  
+
+### 8. Create Budget
+i. Copy and modify budget configuration ``budget.json`` and notification with subscriber configuration ``notifications-with-subscribers.json`` from [aws create-budget](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/budgets/create-budget.html#examples)    
+ii. Run the command 
+```
+aws budgets create-budget \
+    --account-id 111122223333 \
+    --budget file://aws/json/budget.json \
+    --notifications-with-subscribers file://aws/json/notifications-with-subscribers.json
+```
