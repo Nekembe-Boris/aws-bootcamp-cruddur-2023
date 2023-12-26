@@ -98,5 +98,5 @@ ii. Run the command
 aws budgets create-budget \
     --account-id 111122223333 \
     --budget file://aws/json/budget.json \
-    --notifications-with-subscribers file://aws/json/notifications-with-subscribers.json
+    --notifications-with-subscribers file://aws/json/budget-notifications.json
 ```
