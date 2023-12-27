@@ -4,9 +4,11 @@
 
 ### 1. Recreate Conceptual Diagram in Lucid Charts
 [Lucid charts Cruddur Conceptual diagram](https://lucid.app/lucidchart/e2c17852-e646-47e9-9c2e-a505dcb38f2d/edit?viewport_loc=-280%2C-125%2C2237%2C1236%2C0_0&invitationId=inv_6bb0fe62-f6bb-434f-a6db-6b26e20b7c7c)  
+![Conceptual_diagram](../_docs/assets/Conceptual_diagram.png)
 
 ### 2.  Recreate Logical Diagram in Lucid Charts
 [Lucid charts Cruddur Logical diagram](https://lucid.app/lucidchart/2ae356f2-1b4c-4789-9360-b2eeffef69c8/edit?viewport_loc=-4376%2C-1824%2C6712%2C3708%2C0_0&invitationId=inv_a7c99550-d4fa-4b01-a757-42c6780c9e83)  
+![Logical_diagram](../_docs/assets/Logical_diagram.png)
 
 ###  3. Create an Admin User
 
@@ -88,6 +90,7 @@ iii. Confirm subscription in the provide email
 iv. [Create an alarm configuration as a JSON file](https://repost.aws/knowledge-center/cloudwatch-estimatedcharges-alarm)  
 v. Call the **PutMetricAlarm API**  
 ``aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json``  
+![billing_proof](../_docs/assets/Billing_alarm.png)
 
 
 ### 8. Create Budget
@@ -99,3 +102,4 @@ aws budgets create-budget \
     --budget file://aws/json/budget.json \
     --notifications-with-subscribers file://aws/json/budget-notifications.json
 ```
+![budget_proof](../_docs/assets/Budget_alarm.png)
