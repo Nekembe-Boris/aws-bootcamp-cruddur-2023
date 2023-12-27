@@ -7,7 +7,7 @@
 ![Conceptual_diagram](../_docs/assets/Conceptual_diagram.png)
 
 ### 2.  Recreate Logical Diagram in Lucid Charts
-[Lucid charts Cruddur Logical diagram](https://lucid.app/lucidchart/2ae356f2-1b4c-4789-9360-b2eeffef69c8/edit?viewport_loc=-4376%2C-1824%2C6712%2C3708%2C0_0&invitationId=inv_a7c99550-d4fa-4b01-a757-42c6780c9e83)  
+[Lucid charts Cruddur Logical diagram](https://lucid.app/lucidchart/2ae356f2-1b4c-4789-9360-b2eeffef69c8/edit?view_items=KRzXGNWUJnWM&invitationId=inv_a7c99550-d4fa-4b01-a757-42c6780c9e83)  
 ![Logical_diagram](../_docs/assets/Logical_diagram.png)
 
 ###  3. Create an Admin User
