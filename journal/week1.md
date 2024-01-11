@@ -49,6 +49,7 @@ We have to run NPM install before building the container as it requires node_mod
 cd ../frontend-react-js
 npm i
 ```
+
 ### Create Docker file in **frondend-react-js dir**  
 ```
 FROM node:16.18
@@ -61,3 +62,13 @@ RUN npm install
 EXPOSE ${PORT}
 CMD [ "npm", "start"]
 ```
+
+### Build the Container Image
+Run  
+``docker build -t frontend-react-js ./frontend-react-js``
+
+### Run the Container
+Run the command  
+``docker run --rm -d -p 3000:3000 -it frontend-react-js``
+
+###
