@@ -1,7 +1,4 @@
-from datetime import datetime, timedelta, timezone
-class HomeActivities:
-  def run():
-    now = datetime.now(timezone.utc).astimezone()
+from services.home_activities import *
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
       'handle':  'Andrew Brown',
