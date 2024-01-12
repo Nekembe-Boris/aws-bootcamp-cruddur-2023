@@ -13,7 +13,7 @@ pip3 install -r requirements.txt
 #### Create the Docker file
 Create a docker file named **Dockerfile** in the **backend-flask dir**  
 
-```docker
+```dockerfile
 FROM python:3.10-slim-buster
 
 WORKDIR /backend-flask
@@ -47,7 +47,7 @@ npm i
 ```
 
 #### Create Docker file in **frondend-react-js dir**  
-```
+```dockerfile
 FROM node:16.18
 
 ENV PORT=3000
