@@ -1,20 +1,16 @@
 # Week 1 — App Containerization
 
-**INSTALLING DOCKER EXTENSION**  
-i. Click on the **Extension** icon on the dashboard on the left   
-ii. Search **Docker** and ensure you select the verified option from Microsoft (with a blue tick)  
-iii. Install  
+## Required Homework
 
-## 1. Containerize Backend 
-
-### Install Flask
+### 1. Containerize Backend 
+#### Install Flask
 We need to install Flask since we'll use it in creating our web app  
 ```
 cd backend-flask
 pip3 install -r requirements.txt
 ```
 
-### Create the Docker file
+#### Create the Docker file
 Create a docker file named **Dockerfile** in the **backend-flask dir**  
 
 ```docker
@@ -33,24 +29,24 @@ EXPOSE ${PORT}
 CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=4567"]
 ```
 
-### Build the Container Image
+#### Build the Container Image
 Run  
 ``docker build -t backend-flask ./backend-flask``  
 
-### Run the Container
+#### Run the Container
 Run the command  
 ``docker run --rm -d -p 4567:4567 -it -e FRONTEND_URL="*" -e BACKEND_URL="*"  backend-flask``  
 
-## Containerize Frontend
 
-### Install NPM
+### 2. Containerize Frontend
+#### Install NPM
 We have to run NPM install before building the container as it requires node_modules  
 ```
 cd ../frontend-react-js
 npm i
 ```
 
-### Create Docker file in **frondend-react-js dir**  
+#### Create Docker file in **frondend-react-js dir**  
 ```
 FROM node:16.18
 
@@ -63,11 +59,11 @@ EXPOSE ${PORT}
 CMD [ "npm", "start"]
 ```
 
-### Build the Container Image
+#### Build the Container Image
 Run  
 ``docker build -t frontend-react-js ./frontend-react-js``
 
-### Run the Container
+#### Run the Container
 Run the command  
 ``docker run --rm -d -p 3000:3000 -it frontend-react-js``
 
