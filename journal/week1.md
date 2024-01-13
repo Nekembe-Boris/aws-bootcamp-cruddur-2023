@@ -40,13 +40,13 @@ Run the command
 
 ### 2. Containerize Frontend
 #### Install NPM
-We have to run NPM install before building the container as it requires node_modules  
+We have to run NPM install before building the container as it'll copy contents of the node_modules folder  
 ```
 cd ../frontend-react-js
 npm i
 ```
 
-#### Create Docker file in **frondend-react-js dir**  
+#### Create Docker file in **frontend-react-js dir**  
 ```dockerfile
 FROM node:16.18
 
@@ -65,6 +65,37 @@ Run
 
 #### Run the Container
 Run the command  
-``docker run --rm -d -p 3000:3000 -it frontend-react-js``
+``docker run --rm -d -p 3000:3000 -it frontend-react-js``  
 
-### DOCKER COMPOSE
+> The **-d** runs the container is a **detached mode**
+
+### 3. DOCKER COMPOSE
+To automate the creation of the images and containers for the front and backend, write the following code in a **docker-compose.yml** file  
+```yml
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  front-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+
+networks:
+  internal-network:
+    driver: bridge
+    name: cruddur
+```
+
+> For all CLI commands on Docker containers, reference the Docker documentation site https://docs.docker.com/reference/
