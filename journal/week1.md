@@ -37,7 +37,7 @@ Run
 Run the command  
 ``docker run --rm -d -p 4567:4567 -it -e FRONTEND_URL="*" -e BACKEND_URL="*"  backend-flask`` 
 
-> Unlock the ports on the **PORT Tab** after the container has been created
+> Unlock the ports on the **PORT Tab** after the container has been created  
 > Click on the port URL and append to the url **/api/activities/home**. The result will be a json
 
 ### 2. Containerize Frontend
@@ -69,7 +69,7 @@ Run
 Run the command  
 ``docker run --rm -d -p 3000:3000 -it frontend-react-js``  
 
-> The **-d** runs the container is a **detached mode**
+> The **-d** runs the container is a **detached mode**  
 > Unlock the ports on the **PORT Tab** after the container has been created and click on the URL
 
 ### 3. Multiple Container Orchestration
@@ -101,7 +101,5 @@ networks:
     driver: bridge
     name: cruddur
 ```
-
-> For 
 
 > For all CLI commands on Docker containers, reference the Docker documentation site https://docs.docker.com/reference/
