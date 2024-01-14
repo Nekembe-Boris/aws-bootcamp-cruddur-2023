@@ -164,7 +164,7 @@ To install the postgres client into Gitpod
       sudo apt install -y postgresql-client-13 libpq-dev
 ```
 
-### DynamoDB Local
+#### DynamoDB Local
 Also add the following to the docker-compose.yml file under ``services``
 ```yaml
 services:
@@ -185,7 +185,7 @@ services:
 Example of using DynamoDB local
 https://github.com/100DaysOfCloud/challenge-dynamodb-local
 
-## Volumes
+#### Volumes
 
 directory volume mapping
 
@@ -204,3 +204,8 @@ volumes:
   db:
     driver: local
 ```
+
+## Homework Challenges
+### Install Docker Desktop
+Installed Docker Desktop (windows version)
+![docker desktop](../_docs/assets/Docker_desktop.png)
