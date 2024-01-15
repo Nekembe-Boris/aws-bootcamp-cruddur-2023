@@ -204,8 +204,3 @@ volumes:
   db:
     driver: local
 ```
-
-## Homework Challenges
-### Install Docker Desktop
-Installed Docker Desktop (windows version)
-![docker desktop](../_docs/assets/Docker_desktop.png)
