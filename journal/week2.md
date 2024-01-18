@@ -53,3 +53,49 @@ RequestsInstrumentor().instrument()
 > To avoid errors, exclude the ``app = Flask(__name__)`` line since it's already present in your code. Just paste the remaining code under the ``app = Flask(__name__)``
 
 ![OTEL data](../_docs/assets/cruddur_OTEL.png)
+
+### XRay
+#### Instrument AWS X-Ray for Flask
+Move to backend-flask directory  
+``cd backend-flask``  
+
+Add to the requirements.txt file
+``aws-xray-sdk``  
+
+To install all python dependencies run
+``pip install -r requirments.txt``
+
+In ``app.py`` add
+```py
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
+
+#### Set up AWS X-Ray Resources
+In a new file **xray.json** in aws/json
+```json
+{
+  "SamplingRule": {
+      "RuleName": "Cruddur",
+      "ResourceARN": "*",
+      "Priority": 9000,
+      "FixedRate": 0.1,
+      "ReservoirSize": 5,
+      "ServiceName": "backend-flask",
+      "ServiceType": "*",
+      "Host": "*",
+      "HTTPMethod": "*",
+      "URLPath": "*",
+      "Version": 1
+  }
+}
+```
+In aws-cli bash terminal run the following command to create a group
+```aws xray create-group    --group-name "Cruddur"    --filter-expression "service(\"backend-flask\")"```  
+
+Next create an X-Ray sampling rule
+```aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json```
