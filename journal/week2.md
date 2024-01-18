@@ -51,3 +51,5 @@ FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 ```
 > To avoid errors, exclude the ``app = Flask(__name__)`` line since it's already present in your code. Just paste the remaining code under the ``app = Flask(__name__)``
+
+![OTEL data](../_docs/assets/cruddur_OTEL.png)
