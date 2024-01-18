@@ -99,3 +99,24 @@ In aws-cli bash terminal run the following command to create a group
 
 Next create an X-Ray sampling rule
 ```aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json```
+
+#### Install X-Ray Deamon
+Create a Deamon image on the Docker compse file
+```yml
+  xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-east-1"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+```
+
+Add the following env vars to the backend-flask [services] in the docker-compse.yml file
+```yml
+      AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+      AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
