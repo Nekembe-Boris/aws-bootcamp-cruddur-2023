@@ -141,3 +141,27 @@ Set the env var in your backend-flask for `docker-compose.yml`
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
 ```
 ![cloudwatch](../_docs/assets/cloudwatch_llogs.png)
+
+
+### Rollbar
+
+Add to `requirements.txt`
+
+```
+blinker
+rollbar
+```
+
+Install dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
+Set access token
+We need to set our access token
+
+```sh
+export ROLLBAR_ACCESS_TOKEN=""
+gp env ROLLBAR_ACCESS_TOKEN=""
+```
