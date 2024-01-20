@@ -31,16 +31,18 @@ CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
 #### Build the Container Image
 Run  
-``docker build -t backend-flask ./backend-flask``  
+```docker build -t backend-flask ./backend-flask``` 
 
 #### Run the Container
 Run the command  
-``docker run --rm -d -p 4567:4567 -it -e FRONTEND_URL="*" -e BACKEND_URL="*"  backend-flask`` 
+```docker run --rm -d -p 4567:4567 -it -e FRONTEND_URL="*" -e BACKEND_URL="*"  backend-flask```
 
 > **--rm** deletes the container immediately it is stopped
 > **-d** runs the container in a *detached* mode
 > Unlock the ports on the **PORT Tab** after the container has been created  
 > Click on the port URL and append to the url **/api/activities/home**. The result will be a json
+
+![backend container](../_docs/assets/backend-container.png)
 
 ### 2. Containerize Frontend
 #### Install NPM
@@ -65,13 +67,15 @@ CMD [ "npm", "start"]
 
 #### Build the Container Image
 Run  
-``docker build -t frontend-react-js ./frontend-react-js``
+```docker build -t frontend-react-js ./frontend-react-js```
 
 #### Run the Container
 Run the command  
-``docker run --rm -d -p 3000:3000 -it frontend-react-js``  
+```docker run --rm -d -p 3000:3000 -it frontend-react-js```
 
 > Unlock the ports on the **PORT Tab** after the container has been created and click on the URL
+
+![frontend container](../_docs/assets/frontend_container.png)
 
 ### 3. Multiple Container Orchestration
 #### Create Docker compose file
@@ -102,6 +106,8 @@ networks:
     driver: bridge
     name: cruddur
 ```
+
+![multiple containers](../_docs/assets/docker_compose.png)
 
 #### Verify the existence of containers and images and get their varions ID
 ```sh
