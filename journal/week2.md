@@ -120,7 +120,7 @@ Add the following env vars to the backend-flask [services] in the docker-compse.
       AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 ```
-![xray traces](../_docs/assets/aws_xray.png)
+![xray traces](../_docs/assets/aws_xxray.png)
 
 ### CloudWatch Logs
 Add to the **requirements.txt** file  
@@ -140,4 +140,4 @@ Set the env var in your backend-flask for `docker-compose.yml`
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
 ```
-![cloudwatch](../_docs/assets/cloudwatch_logs.png)
+![cloudwatch](../_docs/assets/cloudwatch_llogs.png)
