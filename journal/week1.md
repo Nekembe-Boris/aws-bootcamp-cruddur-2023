@@ -135,6 +135,8 @@ docker rmi <image>
 
 > For all CLI commands on Docker containers, reference the Docker documentation site https://docs.docker.com/reference/
 
+#### Creating the Notification feature (Frontend and Backend)
+![notification](../_docs/assets/notifications.png)
 
 ### Adding DynamoDB Local and Postgres
 
