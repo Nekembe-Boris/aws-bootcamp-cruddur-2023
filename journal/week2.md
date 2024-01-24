@@ -165,3 +165,12 @@ We need to set our access token
 export ROLLBAR_ACCESS_TOKEN=""
 gp env ROLLBAR_ACCESS_TOKEN=""
 ```
+
+#### Consideration
+I was unable to properly implement Rollbar even with the updated code
+
+Successfully Received rollbar test message
+![message_response](../_docs/assets/Rollbar_test_message.png)
+
+Did not receive any Log on the Rollbar Dashboard
+![message_response](../_docs/assets/Rollbar_dashboard.png)
