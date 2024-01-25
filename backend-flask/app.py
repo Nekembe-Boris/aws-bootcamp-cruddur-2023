@@ -48,8 +48,8 @@ from flask import got_request_exception
 # LOGGER.info("Hello Cloudwatch! from  /api/activities/home")
 
 ####Initializing the X-RAY recorder
-# xray_url = os.getenv("AWS_XRAY_URL")
-# xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -63,7 +63,7 @@ app = Flask(__name__)
 
 
 ##$Initializing rollbar
-## XXX hack to make request data work with pyrollbar <= 0.16.3
+## hack to make request data work with pyrollbar <= 0.16.3
 def _get_flask_request():
     print("Getting flask request")
     from flask import request
@@ -74,7 +74,7 @@ rollbar._get_flask_request = _get_flask_request
 def _build_request_data(request):
     return rollbar._build_werkzeug_request_data(request)
 rollbar._build_request_data = _build_request_data
-## XXX end hack
+## end hack
 
 def init_rollbar(app):
   rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
@@ -94,7 +94,7 @@ def init_rollbar(app):
 
 
 #XRAY...
-# XRayMiddleware(app, xray_recorder)
+XRayMiddleware(app, xray_recorder)
 
 # Initialize automatic instrumentation with Flask [Honeycomb]
 FlaskInstrumentor().instrument_app(app)
@@ -170,6 +170,7 @@ def data_notifications():
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
+@xray_recorder.capture('user_activities')
 def data_handle(handle):
   model = UserActivities.run(handle)
   if model['errors'] is not None:
