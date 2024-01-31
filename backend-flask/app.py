@@ -24,13 +24,13 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 ### X-Ray imports
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+# from aws_xray_sdk.core import xray_recorder
+# from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
 ### CloudWatch Logs
-import watchtower
-import logging
-from time import strftime
+# import watchtower
+# import logging
+# from time import strftime
 
 ### Imports for RollBar
 import rollbar
@@ -48,8 +48,8 @@ from flask import got_request_exception
 # LOGGER.info("Hello Cloudwatch! from  /api/activities/home")
 
 ####Initializing the X-RAY recorder
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+# xray_url = os.getenv("AWS_XRAY_URL")
+# xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -93,8 +93,8 @@ def init_rollbar(app):
   return rollbar
 
 
-#XRAY...
-XRayMiddleware(app, xray_recorder)
+#.....XRAY...
+# XRayMiddleware(app, xray_recorder)
 
 # Initialize automatic instrumentation with Flask [Honeycomb]
 FlaskInstrumentor().instrument_app(app)
