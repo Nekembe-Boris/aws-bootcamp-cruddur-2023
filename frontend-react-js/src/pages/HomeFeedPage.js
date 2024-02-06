@@ -1,11 +1,8 @@
 import './HomeFeedPage.css';
 import React from "react";
 
-// import { Auth } from 'aws-amplify';
-import {
-  fetchAuthSession,
-  getCurrentUser
-} from 'aws-amplify/auth'
+import { Auth } from 'aws-amplify';
+
 
 import DesktopNavigation  from '../components/DesktopNavigation';
 import DesktopSidebar     from '../components/DesktopSidebar';
@@ -42,7 +39,7 @@ export default function HomeFeedPage() {
   };
 
   const checkAuth = async () => {
-    fetchAuthSession({
+     Auth.currentAuthenticatedUser({
       // Optional, By default is false. 
       // If set to true, this call will send a 
       // request to Cognito to get the latest user data
@@ -50,7 +47,7 @@ export default function HomeFeedPage() {
     })
     .then((user) => {
       console.log('user',user);
-      return fetchAuthSession()
+      return Auth.currentAuthenticatedUser()
     }).then((cognito_user) => {
         setUser({
           display_name: cognito_user.attributes.name,
