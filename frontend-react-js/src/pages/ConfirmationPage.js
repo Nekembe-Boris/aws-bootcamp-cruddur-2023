@@ -47,7 +47,7 @@ export default function ConfirmationPage() {
       await Auth.confirmSignUp(email, code);
       window.location.href = "/"
     } catch (error) {
-  Errors(error.message)
+    setErrors(error.message)
     }
     return false
   }

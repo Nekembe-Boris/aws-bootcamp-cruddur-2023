@@ -28,7 +28,7 @@ export default function SignupPage() {
               preferred_username: username,
           },
           autoSignIn: { // optional - enables auto sign in after user is confirmed
-              enabled: true,
+            enabled: true,
           }
         });
         console.log(user);
