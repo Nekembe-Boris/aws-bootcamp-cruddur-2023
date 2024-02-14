@@ -3,6 +3,9 @@ from flask import request
 from flask_cors import CORS, cross_origin
 import os
 
+#server side cognito auth
+from lib.cognito_ver_token import CognitoTokenVerification
+
 from services.home_activities import *
 from services.notifications_activities import *
 from services.user_activities import *
@@ -61,6 +64,11 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 
+cognito_token_ver = CognitoTokenVerification(
+  user_pool_id = os.getenv('AWS_COGNITO_USER_POOL_ID'), 
+  user_pool_client_id = os.getenv('AWS_COGNITO_USER_POOL_CLIENT_ID') , 
+  region = os.getenv('AWS_DEFAULT_REGION')
+)
 
 ##$Initializing rollbar
 ## hack to make request data work with pyrollbar <= 0.16.3
@@ -160,6 +168,7 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
+@xray_recorder.capture('home_activities')
 def data_home():
   data = HomeActivities.run()
   return data, 200
