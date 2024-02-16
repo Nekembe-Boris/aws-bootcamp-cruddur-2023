@@ -4,7 +4,7 @@ from flask_cors import CORS, cross_origin
 import os
 
 #server side cognito auth
-from lib.cognito_ver_token import CognitoTokenVerification
+from lib.cognito_ver_token import CognitoJWTToken, extract_access_token, TokenVerifyError
 
 from services.home_activities import *
 from services.notifications_activities import *
@@ -64,7 +64,7 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 
-cognito_token_ver = CognitoTokenVerification(
+cognito_jwt_token = CognitoJWTToken(
   user_pool_id = os.getenv('AWS_COGNITO_USER_POOL_ID'), 
   user_pool_client_id = os.getenv('AWS_COGNITO_USER_POOL_CLIENT_ID') , 
   region = os.getenv('AWS_DEFAULT_REGION')
@@ -168,9 +168,18 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
-@xray_recorder.capture('home_activities')
+# @xray_recorder.capture('home_activities')
 def data_home():
-  data = HomeActivities.run()
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    app.logger.debug(claims)
+    app.logger.debug(claims['username'])
+    data = HomeActivities.run(cognito_user_id = claims['username'])
+  except TokenVerifyError as e:
+    _ = request.data
+    data = HomeActivities.run()
+    
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
