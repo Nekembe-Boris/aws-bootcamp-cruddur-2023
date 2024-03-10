@@ -1,5 +1,7 @@
 # Week 3 — Decentralized Authentication
 
+# Required Homework
+
 ## Install AWS Amplify in the frontend-react-js directory
 
 ```sh
@@ -244,3 +246,4 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 ```
+## Some proof of work
