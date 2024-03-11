@@ -247,3 +247,11 @@ cors = CORS(
 )
 ```
 ## Some proof of work
+  - Creating Cognito user pool
+![cognito_userpool](../_docs/assets/user_pool.png)  
+  - Rejection during sign in due to wrong credentials
+![sign_in](../_docs/assets/sign_in.png)
+  - Activation code after account creation
+![activation code](../_docs/assets/confirmation_code.png)
+  - Signed-in account
+  - ![signed_in](../_docs/assets/signed_in_acc.png)
