@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #! /usr/bin/bash
+=======
+#!  /usr/bin/bash
+>>>>>>> 98ecb3c (file update)
 
 #echo "== db-sessions"
 CYAN='\033[1;36m'
