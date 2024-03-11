@@ -5,7 +5,7 @@
 ## Install AWS Amplify in the frontend-react-js directory
 
 ```sh
-npm i aws-amplify --save
+npm i aws-amplify@5.0.16 --save
 ```
 
 ## Provision Cognito User Group
