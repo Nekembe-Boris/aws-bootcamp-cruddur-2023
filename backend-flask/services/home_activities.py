@@ -3,7 +3,7 @@ from opentelemetry import trace
 
 from lib.db import pool, query_wrap_array
 
-tracer = trace.get_tracer("home.activities")
+# tracer = trace.get_tracer("home.activities")
 
 class HomeActivities:
   def run(cognito_user_id=None):
