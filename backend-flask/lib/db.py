@@ -1,5 +1,6 @@
 from psycopg_pool import ConnectionPool
 import os
+import re
 
 
 class Db:
@@ -10,25 +11,33 @@ class Db:
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
 
-  def query_commit_with_returning_id(self, sql, *args)
+  def query_commit(self, sql, *kwargs)
+
+    pattern = r"\bRETURNING\b"
+    is_returning_id = re.search(pattern, sql)
+
     try:
       conn = self.pool.connection()
       cur = conn.cursor()
-      cur.execute(sql)
-      returning_id = cur.fetchone()[0]
+      cur.execute(sql, params)
+
+      if is_returning_id:
+        returning_id = cur.fetchone()[0]
       conn.commit()
-      return returning_id
+
+      if is_returning_id:
+        return returning_id
     except Exception as error:
       conn.rollback()
 
-  def query_commit(self, sql)
-    try:
-      conn = self.pool.connection()
-      cur = conn.cursor()
-      cur.execute(sql)
-      conn.commit()
-    except Exception as error:
-      conn.rollback()
+  # def query_commit(self, sql)
+  #   try:
+  #     conn = self.pool.connection()
+  #     cur = conn.cursor()
+  #     cur.execute(sql)
+  #     conn.commit()
+  #   except Exception as error:
+  #     conn.rollback()
   
   def query_wrap_object(self, template):
   sql = f"""  
