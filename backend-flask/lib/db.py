@@ -1,32 +1,39 @@
 from psycopg_pool import ConnectionPool
 import os
 import re
+from flask import current_app as app
 
 
 class Db:
   def __init__(self):
     self.init_pool()
-
+ 
   def init_pool(self):
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
 
-  def query_commit(self, sql, *kwargs)
+  def template(self, name):
+    template_path = os.path.join(app.root_path, 'db', 'sql', f'{name}.sql')
+    
+    with open(template_path, 'r') as file:
+      template_content = file.read()
+
+  def query_commit(self, sql, *kwargs):
 
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
 
     try:
-      conn = self.pool.connection()
-      cur = conn.cursor()
-      cur.execute(sql, params)
+      with self.pool.connection() as conn:
+        cur = conn.cursor()
+        cur.execute(sql, params)
 
-      if is_returning_id:
-        returning_id = cur.fetchone()[0]
-      conn.commit()
+        if is_returning_id:
+          returning_id = cur.fetchone()[0]
+        conn.commit()
 
-      if is_returning_id:
-        return returning_id
+        if is_returning_id:
+          return returning_id
     except Exception as error:
       conn.rollback()
 
@@ -40,12 +47,12 @@ class Db:
   #     conn.rollback()
   
   def query_wrap_object(self, template):
-  sql = f"""  
-  (SELECT COALESCE(row_to_json(object_row),'{ {}}'::json) FROM (
-  {template}
-  ) object_row);"""
+    sql = f"""  
+    (SELECT COALESCE(row_to_json(object_row),'{ {}}'::json) FROM (
+    {template}
+    ) object_row);"""
 
-  return sql
+    return sql
 
   def query_wrap_array(self, template):
     sql = f"""
