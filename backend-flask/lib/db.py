@@ -18,7 +18,7 @@ class Db:
     with open(template_path, 'r') as file:
       template_content = file.read()
 
-  def query_commit(self, sql, *kwargs):
+  def query_commit(self, sql, params={}):
 
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
@@ -36,15 +36,6 @@ class Db:
           return returning_id
     except Exception as error:
       conn.rollback()
-
-  # def query_commit(self, sql)
-  #   try:
-  #     conn = self.pool.connection()
-  #     cur = conn.cursor()
-  #     cur.execute(sql)
-  #     conn.commit()
-  #   except Exception as error:
-  #     conn.rollback()
   
   def query_wrap_object(self, template):
     sql = f"""  
