@@ -39,7 +39,7 @@ class Db:
   
   def query_wrap_object(self, template):
     sql = f"""  
-    (SELECT COALESCE(row_to_json(object_row),'{ {}}'::json) FROM (
+    (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
     {template}
     ) object_row);"""
 
@@ -65,7 +65,7 @@ class Db:
         return json[0]    
 
 
-  def query_object_josn(self, sql):
+  def query_object_json(self, sql):
     wrapped_sql = self.query_wrap_object(sql)
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
@@ -74,6 +74,32 @@ class Db:
         # the first field being the data
         json = cur.fetchone()
         return json[0]
+  
+  def print_sql_err(self, err):
+    # get details about the exception
+    err_type, err_obj, traceback = sys.exc_info()
+
+    # get the line number when exception occured
+    line_num = traceback.tb_lineno
+
+    # print the connect() error
+    print ("\npsycopg ERROR:", err, "on line number:", line_num)
+    print ("psycopg traceback:", traceback, "-- type:", err_type)
+
+    # print the pgcode and pgerror exceptions
+    print ("pgerror:", err.pgerror)
+    print ("pgcode:", err.pgcode, "\n")
+
+  def query_commit_with_id(self, sql, *kwargs):
+    try: 
+      conn = pool.connection()
+      cur = conn.cursor()
+      cur.execute(sql, kwargs)
+      returning_id = cur.fetchone()[0]
+      conn.commit()
+    except Exception as err:
+      self.print_sql_err(err)
+      # conn.rollback()
 
 
 db = Db()
