@@ -1,6 +1,7 @@
 from psycopg_pool import ConnectionPool
 import os
 import re
+import sys
 from flask import current_app as app
 
 
@@ -18,24 +19,6 @@ class Db:
     with open(template_path, 'r') as file:
       template_content = file.read()
 
-  def query_commit(self, sql, params={}):
-
-    pattern = r"\bRETURNING\b"
-    is_returning_id = re.search(pattern, sql)
-
-    try:
-      with self.pool.connection() as conn:
-        cur = conn.cursor()
-        cur.execute(sql, params)
-
-        if is_returning_id:
-          returning_id = cur.fetchone()[0]
-        conn.commit()
-
-        if is_returning_id:
-          return returning_id
-    except Exception as error:
-      conn.rollback()
   
   def query_wrap_object(self, template):
     sql = f"""  
@@ -90,13 +73,20 @@ class Db:
     print ("pgerror:", err.pgerror)
     print ("pgcode:", err.pgcode, "\n")
 
-  def query_commit_with_id(self, sql, *kwargs):
+  def query_commit(self, sql, *kwargs):
+    pattern = r"\bRETURNING\b"
+    is_returning_id = re.search(pattern, sql)
+
     try: 
-      conn = pool.connection()
+      conn = self.pool.connection()
       cur = conn.cursor()
       cur.execute(sql, kwargs)
-      returning_id = cur.fetchone()[0]
+      if is_returning_id:
+        returning_id = cur.fetchone()[0]
       conn.commit()
+
+      if is_returning_id:
+        return is_returning_id
     except Exception as err:
       self.print_sql_err(err)
       # conn.rollback()
