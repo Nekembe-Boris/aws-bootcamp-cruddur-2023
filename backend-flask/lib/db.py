@@ -18,6 +18,7 @@ class Db:
     
     with open(template_path, 'r') as file:
       template_content = file.read()
+    return template_content
 
   
   def query_wrap_object(self, template):
@@ -73,14 +74,14 @@ class Db:
     print ("pgerror:", err.pgerror)
     print ("pgcode:", err.pgcode, "\n")
 
-  def query_commit(self, sql, **kwargs):
+  def query_commit(self, sql, params):
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
 
     try:
       with self.pool.connection() as conn:
         cur = conn.cursor()
-        cur.execute(sql, kwargs)
+        cur.execute(sql, params)
         if is_returning_id:
           returning_id = cur.fetchone()[0]
         conn.commit()
