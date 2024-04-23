@@ -19,7 +19,12 @@ class Db:
     with open(template_path, 'r') as file:
       template_content = file.read()
     return template_content
-
+  
+  def print_sql(self,title,sql):
+    cyan = '\033[96m'
+    no_color = '\033[0m'
+    print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
+    # print(sql, + "\n")
   
   def query_wrap_object(self, template):
     sql = f"""  
@@ -74,7 +79,8 @@ class Db:
     print ("pgerror:", err.pgerror)
     print ("pgcode:", err.pgcode, "\n")
 
-  def query_commit(self, sql, params):
+  def query_commit(self, sql, params={}):
+    self.print_sql('commit with returning', sql)
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
 
