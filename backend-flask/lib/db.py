@@ -19,15 +19,17 @@ class Db:
   #   for key, value in params.items():
   #     print(key, ":", value)
 
-  def template(self, name, *args):
-    pathing = list((app.root_path,'db','sql',) + args)
+  def template(self, *args):
+
+    pathing = list((app.root_path,'db','sql/activities',) + args)
     pathing[-1] = pathing[-1] + ".sql"
+    print(pathing)
 
     template_path = os.path.join(*pathing)
 
     green = '\033[92m'
     no_color = '\033[0m'
-    print(f'{green} Load SQL Template: {template_path} {no_color}')
+    # print(f'{green} Load SQL Template: {template_path} {no_color}')
     
     with open(template_path, 'r') as file:
       template_content = file.read()
