@@ -26,10 +26,11 @@ class Db:
       template_content = file.read()
     return template_content
   
-  def print_sql(self,title,sql):
+  def print_sql(self,title, params={}):
     cyan = '\033[96m'
     no_color = '\033[0m'
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
+    print(sql, params)
   
   def query_wrap_object(self, template):
     sql = f"""  
@@ -47,9 +48,17 @@ class Db:
     """
     return sql
 
+  def query_value(self,sql,params={}):
+    self.print_sql('value',sql,params)
+
+    with self.pool.connection() as conn:
+      with conn.cursor() as cur:
+        cur.execute(sql,params)
+        json = cur.fetchone()
+        return json[0]
 
   def query_array_json(self, sql, params={}):
-    self.print_sql('array', sql)
+    self.print_sql('array', sql, params)
     wrapped_sql = self.query_wrap_array(sql)
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
@@ -59,7 +68,7 @@ class Db:
 
 
   def query_object_json(self, sql, params={}):
-    self.print_sql('json', sql)
+    self.print_sql('json', sql, params)
 
     wrapped_sql = self.query_wrap_object(sql)
     with self.pool.connection() as conn:
@@ -84,7 +93,7 @@ class Db:
     print ("psycopg traceback:", traceback, "-- type:", err_type)
 
   def query_commit(self, sql, params={}):
-    self.print_sql('commit with returning', sql)
+    self.print_sql('commit with returning', sql, params)
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
 
