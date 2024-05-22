@@ -21,7 +21,7 @@ export default function ActivityForm(props) {
       console.log('onsubmit payload', message)
       let json = { 'message': message }
       if (params.handle) {
-        json.handle = params.handle
+        json.user_receiver_handle = params.handle
       } else {
         json.message_group_uuid = params.message_group_uuid
       }
