@@ -164,12 +164,12 @@ class Ddb:
         }
 
         try:
-        print('== create_message_group.try')
-        # Begin the transaction
-        response = client.batch_write_item(RequestItems=items)
-        return {
-            'message_group_uuid': message_group_uuid
-        }
+            print('== create_message_group.try')
+            # Begin the transaction
+            response = client.batch_write_item(RequestItems=items)
+            return {
+                'message_group_uuid': message_group_uuid
+            }
         except botocore.exceptions.ClientError as e:
-        print('== create_message_group.error')
-        print(e)
+            print('== create_message_group.error')
+            print(e)
