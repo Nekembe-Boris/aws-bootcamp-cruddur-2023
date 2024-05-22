@@ -6,6 +6,7 @@ import os
 #server side cognito auth
 from lib.cognito_ver_token import CognitoJWTToken, extract_access_token, TokenVerifyError
 
+from services.users_short import *
 from services.home_activities import *
 from services.notifications_activities import *
 from services.user_activities import *
@@ -237,8 +238,13 @@ def data_notifications():
   data = NotificationsActivities.run()
   return data, 200
 
+@app.route("/api/users/@<string:handle>/short", methods=['GET'])
+def data_users_short(handle):
+  data = UsersShort.run(handle)
+  return data, 200
+
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
-@xray_recorder.capture('user_activities')
+# @xray_recorder.capture('user_activities')
 def data_handle(handle):
   model = UserActivities.run(handle)
   if model['errors'] is not None:
@@ -285,6 +291,8 @@ def data_activities_reply(activity_uuid):
   else:
     return model['data'], 200
   return
+
+
 
 
 if __name__ == "__main__":
