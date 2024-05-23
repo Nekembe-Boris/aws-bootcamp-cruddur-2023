@@ -150,7 +150,7 @@ def data_message_groups():
       return model['data'], 200
   except TokenVerifyError as e:
     _ = request.data
-    data = HomeActivities.run()
+    app.logger.debug(e)
     return {}, 401
 
 
@@ -175,7 +175,7 @@ def data_messages(message_group_uuid):
       return model['data'], 200
   except TokenVerifyError as e:
     _ = request.data
-    data = HomeActivities.run()
+    app.logger.debug(e)
     return {}, 401
 
 @app.route("/api/messages", methods=['POST','OPTIONS'])
@@ -214,8 +214,8 @@ def data_create_message():
     else:
       return model['data'], 200
   except TokenVerifyError as e:
-    _ = request.data
-    data = HomeActivities.run()
+    app.logger.debug(e)
+    app.logger.debug("unauthenicated")
     return {}, 401
 
 @app.route("/api/activities/home", methods=['GET'])
@@ -291,8 +291,6 @@ def data_activities_reply(activity_uuid):
   else:
     return model['data'], 200
   return
-
-
 
 
 if __name__ == "__main__":
