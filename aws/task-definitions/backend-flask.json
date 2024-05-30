@@ -7,7 +7,7 @@
       {
         "name": "backend-flask",
         "image": "181991279495.dkr.ecr.us-east-1.amazonaws.com/backend-flask",
-        "cpu": 256,
+        "cpu": 512,
         "memory": 512,
         "essential": true,
         "portMappings": [
