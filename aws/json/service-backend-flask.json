@@ -1,0 +1,22 @@
+{
+    "cluster": "cruddur",
+    "launchType": "EC2",
+    "desiredCount": 1,
+    "enableECSManagedTags": true,
+    "enableExecuteCommand": true,
+    "networkConfiguration": {
+      "awsvpcConfiguration": {
+        "securityGroups": [
+          "sg-0c262c7cf3244183c"
+        ],
+        "subnets": [
+            "subnet-02b9f8cf6d95fa3f2",
+            "subnet-0ca77b421939c16e9",
+            "subnet-08b648c5747bad34a"
+        ]
+      }
+    },
+    "propagateTags": "SERVICE",
+    "serviceName": "backend-flask",
+    "taskDefinition": "backend-flask"
+  }
